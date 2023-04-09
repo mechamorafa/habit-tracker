@@ -37,4 +37,51 @@ function toggleHabit(e) {
   habit.progress[day] = completed;
   habits[habitIndex] = habit;
   localStorage.setItem('habits', JSON.stringify(habits));
-  e
+  e.target.classList.toggle('active');
+}
+
+// add habit
+function addHabit(e) {
+  e.preventDefault();
+  const name = habitNameInput.value;
+  if (!name) return;
+  const id = new Date().getTime();
+  const habit = {
+    id: id,
+    name: name,
+    progress: {}
+  };
+  habits.push(habit);
+  localStorage.setItem('habits', JSON.stringify(habits));
+  habitNameInput.value = '';
+  const li = document.createElement('li');
+  li.innerHTML = `<span class="habit-name">${habit.name}</span><button class="remove-habit" data-id="${habit.id}">Remove</button>`;
+  habitList.appendChild(li);
+}
+
+// remove habit
+function removeHabit(e) {
+  if (!e.target.classList.contains('remove-habit')) return;
+  const habitId = e.target.getAttribute('data-id');
+  const habitIndex = habits.findIndex(h => h.id == habitId);
+  habits.splice(habitIndex, 1);
+  localStorage.setItem('habits', JSON.stringify(habits));
+  e.target.parentNode.remove();
+}
+
+// initialize app
+generateCalendar();
+loadHabits();
+
+// event listeners
+calendar.addEventListener('click', toggleHabit);
+addHabitForm.addEventListener('submit', addHabit);
+habitList.addEventListener('click', removeHabit);
+
+// set habit progress on calendar
+habits.forEach(habit => {
+  for (const [day, completed] of Object.entries(habit.progress)) {
+    const dayElement = calendar.querySelector(`[data-day="${day}"]`);
+    dayElement.classList.add('active');
+  }
+});
