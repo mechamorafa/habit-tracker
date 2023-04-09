@@ -1,0 +1,49 @@
+#calendar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.day {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  background-color: #f2f2f2;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.day.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#habit-list ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#habit-list li {
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+
+#habit-list li .habit-name {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+#habit-list li button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
